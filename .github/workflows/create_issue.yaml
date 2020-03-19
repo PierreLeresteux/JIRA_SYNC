@@ -13,6 +13,7 @@ jobs:
             env:
               GITHUB_CONTEXT: ${{ toJson(github) }}
             run: echo "$GITHUB_CONTEXT"
+
           - name: Jira Login
             id: login
             uses: atlassian/gajira-login@v2.0.0
@@ -24,31 +25,12 @@ jobs:
             id: create_jira_issue
             uses: atlassian/gajira-create@v2.0.0
             with:
-                project: GHTEST
-                issuetype: Story
+                project: ${{ secrets.JIRA_PROJECT }}
+                issuetype: ${{ secrets.JIRA_ISSUE_TYPE }}
                 summary: ${{ github.event.issue.title }}
                 description: ${{ github.event.issue.body }}
-          - name: Dump JIRA_RETURN
-            env:
-              JIRA_RETURN: ${{ toJson(steps.create_jira_issue.outputs) }}
-            run: echo "$JIRA_RETURN"
- 
-          - name: Dump Title 2
-            env: 
-              ISSUE_TITLE: ${{ github.event.issue.title}}
-            run: echo "$ISSUE_TITLE"                
 
-          - name: Add comment after sync
-            uses: actions/github-script@0.8.0
-            with:
-              github-token: ${{secrets.GITHUB_TOKEN}}
-              script: |
-                github.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: '${{ steps.create_jira_issue.outputs.issue }}'
-                })
+
           
           - name: Change Title
             uses: actions/github-script@0.8.0
@@ -61,5 +43,17 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  title: '[${{ steps.create_jira_issue.outputs.issue }}]${{ env.ISSUE_TITLE }}'
+                  title: '[${{ steps.create_jira_issue.outputs.issue }}] ${{ env.ISSUE_TITLE }}'
                 })
+
+          - name: Add comment after sync
+            uses: actions/github-script@0.8.0
+            with:
+              github-token: ${{secrets.GITHUB_TOKEN}}
+              script: |
+                github.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: 'JIRA Issue created : ${{ steps.create_jira_issue.outputs.issue }}'
+                })                
