@@ -2,7 +2,9 @@ name: Set issue In Progress on Jira
 
 on:
     pull_request:
-        types: [opened, edited]
+      types: [opened, edited]
+    issues:
+      types: [edited]
 
 jobs:
     jira:
