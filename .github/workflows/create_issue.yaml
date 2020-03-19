@@ -28,7 +28,7 @@ jobs:
                 project: ${{ secrets.JIRA_PROJECT }}
                 issuetype: ${{ secrets.JIRA_ISSUE_TYPE }}
                 summary: "[GH#${{ github.event.issue.number }}]${{ github.event.issue.title }}"
-                description: >
+                description: |
                   ${{ github.event.issue.body }}
                   -------
                   ${{ github.event.issue.html_url }}
