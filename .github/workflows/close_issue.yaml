@@ -33,7 +33,7 @@ jobs:
             uses: atlassian/gajira-transition@v2.0.0
             with:
               issue: ${{ steps.extract_jira_number.outputs.jira_number }}
-              transition: ${{ secrets.JIRA_CLOSE_TRANSITIONID }}
+              transition: "${{ secrets.JIRA_CLOSE_TRANSITIONID }}"
 
           - name: Failed
             run: "exit 1"     
