@@ -32,6 +32,15 @@ jobs:
             env:
               JIRA_RETURN: ${{ toJson(steps.create_jira_issue.outputs) }}
             run: echo "$JIRA_RETURN"
+          - name: Dump Title
+            env: 
+              ISSUE_TITLE: ${{ toJson(github).event.issue.title}}
+            run: echo "$ISSUE_TITLE"  
+          - name: Dump Title 2
+            env: 
+              ISSUE_TITLE: ${{ github.event.issue.title}}
+            run: echo "$ISSUE_TITLE"                
+
           - name: Add comment after sync
             uses: actions/github-script@0.8.0
             with:
@@ -43,6 +52,7 @@ jobs:
                   repo: context.repo.repo,
                   body: '${{ steps.create_jira_issue.outputs.issue }}'
                 })
+          
           - name: Change Title
             uses: actions/github-script@0.8.0
             env: 
