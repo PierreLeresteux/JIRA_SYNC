@@ -55,5 +55,5 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: 'JIRA Issue created : ${{ steps.create_jira_issue.outputs.issue }}'
+                  body: ':+1: JIRA Issue created : [${{ steps.create_jira_issue.outputs.issue }}]'
                 })                
