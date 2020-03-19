@@ -30,8 +30,10 @@ jobs:
                 summary: "[GH#${{ github.event.issue.number }}]  ${{ github.event.issue.title }}"
                 description: |
                   ${{ github.event.issue.body }}
-                  ---
-                  _Synchronize from_ ${{ github.event.issue.html_url }}
+                  ----
+                  {panel}
+                  _Synchronize from ${{ github.event.issue.html_url }}_
+                  {panel}
 
           
           - name: Change Title
