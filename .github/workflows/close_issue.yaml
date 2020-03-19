@@ -28,5 +28,12 @@ jobs:
           - name: Dump JIRA number
             run: echo "${{ steps.extract_jira_number.outputs.jira_number }}"
           
+          - name: Jira Close issue
+            id: close_jira_issue
+            uses: atlassian/gajira-transition@v2.0.0
+            with:
+              issue: ${{ steps.extract_jira_number.outputs.jira_number }}
+              transition: "Done"
+
           - name: Failed
             run: "exit 1"     
