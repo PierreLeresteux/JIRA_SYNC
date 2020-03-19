@@ -9,10 +9,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-          - name: Dump all
+          - name: Dump GitHub context
             env:
-              CONTEXT: ${{ toJson(context) }}
-            run: echo "$CONTEXT"
+              GITHUB_CONTEXT: ${{ toJson(github) }}
+            run: echo "$GITHUB_CONTEXT"
           - name: Jira Login
             id: login
             uses: atlassian/gajira-login@v2.0.0
