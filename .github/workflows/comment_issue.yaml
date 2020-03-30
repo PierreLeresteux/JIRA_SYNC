@@ -36,8 +36,5 @@ jobs:
                   ${{ github.event.comment.body }}
                   ----
                   {panel}
-                  _See this comment in Github : ${{ github.event.comment.html_url }}_
-                  {panel}
-          
-          - name: FAILED
-            run: exit 1         
+                  [See this comment in Github|${{ github.event.comment.html_url }}]
+                  {panel}     
