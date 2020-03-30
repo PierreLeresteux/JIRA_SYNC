@@ -25,9 +25,12 @@ jobs:
             id: extract_jira_number
             run: echo "::set-output name=jira_number::$(echo ${{ github.event.issue.title }}| sed 's/.*\[\(${{ secrets.JIRA_PROJECT }}-[[:digit:]]\{1,\}\)\].*/\1/')"          
           
+          - name: Setup
+            uses: atlassian/gajira-cli@master
+            with:
+              version: v2.0.0
           - name: Jira Edit issue
             id: edit_jira_issue
-            uses: atlassian/gajira-cli@v2.0.0
             run: jira edit --issue=${{ steps.extract_jira_number.outputs.jira_number }} --description=|
                   ${{ github.event.issue.body }}
                   ----
