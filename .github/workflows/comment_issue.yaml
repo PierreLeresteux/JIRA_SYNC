@@ -37,5 +37,5 @@ jobs:
 
                   ----
                   {panel}
-                  _[Github permalink >> |${{ github.event.comment.html_url }}]_
+                  _[Github permalink |${{ github.event.comment.html_url }}]_
                   {panel}     
