@@ -31,10 +31,11 @@ jobs:
             with:
               issue: ${{ steps.extract_jira_number.outputs.jira_number }}
               comment: |
-                  Gitlab username : ${{ github.event.comment.user.login }}
+                  From : ${{ github.event.comment.user.login }}
                   Comment : 
-                  ${{ github.event.comment.body }}
+                  {quote}${{ github.event.comment.body }}{quote}
+
                   ----
                   {panel}
-                  [See this comment in Github|${{ github.event.comment.html_url }}]
+                  _[Github permalink :link: |${{ github.event.comment.html_url }}]_
                   {panel}     

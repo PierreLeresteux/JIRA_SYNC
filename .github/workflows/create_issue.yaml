@@ -32,7 +32,7 @@ jobs:
                   ${{ github.event.issue.body }}
                   ----
                   {panel}
-                  _Synchronize from ${{ github.event.issue.html_url }}_
+                  _[Github permalink :link: |${{ github.event.issue.html_url }}]_
                   {panel}
 
           
