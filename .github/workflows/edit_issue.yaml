@@ -26,11 +26,14 @@ jobs:
                 JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
                 JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
                 JIRA_API_TOKEN: ${{ secrets.JIRA_TOKEN }}
-                
+
           - name: Extract JIRA number
             id: extract_jira_number
             run: echo "::set-output name=jira_number::$(echo ${{ github.event.issue.title }}| sed 's/.*\[\(${{ secrets.JIRA_PROJECT }}-[[:digit:]]\{1,\}\)\].*/\1/')"          
           
+          - name: Jira Login
+            id: jira_login
+            run: jira login
           
           - name: Jira Edit issue
             id: edit_jira_issue
