@@ -28,7 +28,7 @@ jobs:
           - name: Setup
             uses: atlassian/gajira-cli@master
             with:
-              version: v2.0.0
+              version: 1.0.20
           - name: Jira Edit issue
             id: edit_jira_issue
             run: jira edit --issue=${{ steps.extract_jira_number.outputs.jira_number }} --description=|
