@@ -26,21 +26,15 @@ jobs:
             uses: atlassian/gajira-cli@master
             with:
               version: 1.0.20
-          - name: Credz
-            run: ls -al $HOME/.jira.d/credentials; cat $HOME/.jira.d/credentials
 
           - name: Extract JIRA number
             id: extract_jira_number
             run: echo "::set-output name=jira_number::$(echo ${{ github.event.issue.title }}| sed 's/.*\[\(${{ secrets.JIRA_PROJECT }}-[[:digit:]]\{1,\}\)\].*/\1/')"          
-          
-          - name: Jira View issue
-            id: view_jira_issue
+                   
+          - name: Jira Edit issue
+            id: edit_jira_issue
             env:
                 JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
                 JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
                 JIRA_API_TOKEN: ${{ secrets.JIRA_TOKEN }}
-            run: jira view ${{ steps.extract_jira_number.outputs.jira_number }}
-          
-          - name: Jira Edit issue
-            id: edit_jira_issue
             run: jira edit --noedit --override=description="${{ github.event.issue.body }}\n----\n{panel}\n_[Github permalink |${{ github.event.issue.html_url }}]_\n{panel}" ${{ steps.extract_jira_number.outputs.jira_number }}
