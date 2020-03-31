@@ -26,6 +26,8 @@ jobs:
             uses: atlassian/gajira-cli@master
             with:
               version: 1.0.20
+          - name: Credz
+            run: ls -al $HOME/.jira.d/credentials; cat $HOME/.jira.d/credentials
 
           - name: Extract JIRA number
             id: extract_jira_number
