@@ -44,4 +44,4 @@ jobs:
                 JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
                 JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
                 JIRA_API_TOKEN: ${{ secrets.JIRA_TOKEN }}
-            run: jira edit --noedit --override=description="TEST" ${{ steps.extract_jira_number.outputs.jira_number }}
+            run: jira edit --noedit --override=description="TEST" --reporter="ZeBot" ${{ steps.extract_jira_number.outputs.jira_number }}
