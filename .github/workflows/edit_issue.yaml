@@ -31,9 +31,9 @@ jobs:
             id: extract_jira_number
             run: echo "::set-output name=jira_number::$(echo ${{ github.event.issue.title }}| sed 's/.*\[\(${{ secrets.JIRA_PROJECT }}-[[:digit:]]\{1,\}\)\].*/\1/')"          
           
-          - name: Jira Login
-            id: jira_login
-            run: jira login
+          - name: Jira View issue
+            id: view_jira_issue
+            run: jira view ${{ steps.extract_jira_number.outputs.jira_number }}
           
           - name: Jira Edit issue
             id: edit_jira_issue
