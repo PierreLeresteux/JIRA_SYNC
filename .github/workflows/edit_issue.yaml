@@ -30,11 +30,18 @@ jobs:
           - name: Extract JIRA number
             id: extract_jira_number
             run: echo "::set-output name=jira_number::$(echo ${{ github.event.issue.title }}| sed 's/.*\[\(${{ secrets.JIRA_PROJECT }}-[[:digit:]]\{1,\}\)\].*/\1/')"          
-                   
+
+          - name: Format Description
+            id: format_description
+            run: echo "::set-output name=d::$(echo ${{ github.event.issue.body }}\n----\n{panel}\n_[Github permalink |${{ github.event.issue.html_url }}]_\n{panel} )"
+
+          - name: Display Description
+            run: echo "${{ steps.format_description.outputs.d }}"
+
           - name: Jira Edit issue
             id: edit_jira_issue
             env:
                 JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
                 JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
                 JIRA_API_TOKEN: ${{ secrets.JIRA_TOKEN }}
-            run: jira edit --noedit --override=description="${{ github.event.issue.body }}\n----\n{panel}\n_[Github permalink |${{ github.event.issue.html_url }}]_\n{panel}" ${{ steps.extract_jira_number.outputs.jira_number }}
+            run: jira edit --noedit --override=description=${{ steps.format_description.outputs.d }} ${{ steps.extract_jira_number.outputs.jira_number }}
